@@ -8,6 +8,7 @@ library(tidyverse)
 library(hrbrthemes)
 library(streamgraph)
 library(htmlwidgets)
+library(webshot)
 
 tuesdata <- tidytuesdayR::tt_load('2021-08-10')
 investment <- tuesdata$investment
@@ -58,3 +59,8 @@ graph <- investment %>%
   streamgraph(., key = "category", value = "gross_inv", date="year") %>% 
   sg_legend(TRUE, "Fuente de inversión")
 saveWidget(graph, file=paste0(getwd(), "stream.html"))
+
+# para guardar el stream como imagen estática
+webshot::install_phantomjs()
+webshot("file:///Users/macarenaquiroga/Documents/R/TidyTuesday_publicstream.html", 
+        "week33_stream.png", delay = 0.2)
